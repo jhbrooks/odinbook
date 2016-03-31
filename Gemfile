@@ -7,6 +7,10 @@ gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+# Use carrierwave, mini_magick, and fog for image upload
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
 # Use OmniAuth with Facebook
 gem 'omniauth-facebook'
 # Use Figaro for environment variables
