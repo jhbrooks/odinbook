@@ -11,9 +11,9 @@
   <%= render "layouts/header" %>
   <div class="container">
     <% flash.each do |msg_type, msg| %>
-      <% if msg_type = "notice" %>
+      <% if msg_type == "notice" %>
         <%= content_tag :div, msg, class: "alert alert-info" %>
-      <% elsif msg_type = "alert" %>
+      <% elsif msg_type == "alert" %>
         <%= content_tag :div, msg, class: "alert alert-danger" %>
       <% elsif ["success", "info", "danger"].include?(msg_type) %>
         <%= content_tag :div, msg, class: "alert alert-#{msg_type}" %>
