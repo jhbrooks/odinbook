@@ -4,6 +4,9 @@
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li>
+            <%= link_to "Current user: #{current_user.name}", "#" %>
+          </li>
+          <li>
             <%= link_to "User settings", edit_user_registration_path %>
           </li>
           <li>
