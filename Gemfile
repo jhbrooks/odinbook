@@ -7,6 +7,8 @@ gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+# Use date_validator for date validation
+gem 'date_validator'
 # Use carrierwave, mini_magick, and fog for image upload
 gem 'carrierwave'
 gem 'mini_magick'

@@ -1,0 +1,33 @@
+<% provide :title, @user.name %>
+
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1><%= @user.name %></h1>
+      <% unless @profile.city.blank? %>
+        <span>City: <%= @profile.city %></span>
+      <% end %>
+      <% unless @profile.state.blank? %>
+        <span>State: <%= @profile.state %></span>
+      <% end %>
+      <% unless @profile.country.blank? %>
+        <span>Country: <%= @profile.country %></span>
+      <% end %>
+      <% unless @profile.time_zone.blank? %>
+        <span>Time zone: <%= @profile.time_zone%></span>
+      <% end %>
+      <% unless @profile.birthday.blank? %>
+        <span>Birthday: <%= formatted_birthday(@profile.birthday) %></span>
+      <% end %>
+      <% unless @profile.age.blank? %>
+        <span>Age: <%= @profile.age %></span>
+      <% end %>
+      <% unless @profile.gender.blank? %>
+        <span>Gender: <%= @profile.gender %></span>
+      <% end %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <h3>News feed</h3>
+  </div>
+</div>

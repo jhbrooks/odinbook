@@ -6,14 +6,32 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create!(name: "Example User",
-             email: "ex@example.com",
-             password: "password",
-             password_confirmation: "password")
+user = User.create!(name: "Example User",
+                    email: "ex@example.com",
+                    password: "password",
+                    password_confirmation: "password")
 
+c_date = Date.today
+user.create_profile!(city: "Chicago",
+                     state: "IL",
+                     country: "USA",
+                     time_zone: "Central Time (US & Canada)",
+                     birthday: Date.new(c_date.year - 21,
+                                        c_date.month,
+                                        c_date.day),
+                     gender: nil)
+
+genders = ["Male", "Female", "Other", nil]
 99.times do |n|
-  User.create!(name: Faker::Name.name,
-               email: "ex-#{n}@example.com",
-               password: "password",
-               password_confirmation: "password")
+  user = User.create!(name: Faker::Name.name,
+                      email: "ex-#{n}@example.com",
+                      password: "password",
+                      password_confirmation: "password")
+
+  user.create_profile!(city: Faker::Address.city,
+                       state: Faker::Address.state_abbr,
+                       country: "USA",
+                       time_zone: "Eastern Time (US & Canada)",
+                       birthday: Faker::Date.birthday,
+                       gender: genders[n % genders.length])
 end

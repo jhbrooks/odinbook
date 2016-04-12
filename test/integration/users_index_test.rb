@@ -17,14 +17,14 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template "users/index"
     User.paginate(page: 1).each do |user|
-      assert_select "span", text: user.name, count: 1
+      assert_select "a[href=?]", user_path(user), text: user.name
       assert_select "a[href=?]", "#", text: "Send friend request"
     end
 
     get users_path, page: 2
     assert_template "users/index"
     User.paginate(page: 2).each do |user|
-      assert_select "span", text: user.name, count: 1
+      assert_select "a[href=?]", user_path(user), text: user.name
       assert_select "a[href=?]", "#", text: "Send friend request"
     end
   end

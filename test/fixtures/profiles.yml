@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  city: Boston
+  state: MA
+  country: USA
+  time_zone: Eastern Time (US & Canada)
+  birthday: 2015-04-15
+  gender: Male
+  user: one
+
+two:
+  city: Chicago
+  state: IL
+  country: USA
+  time_zone: Central Time (US & Canada)
+  birthday: 2016-04-11
+  gender: Female
+  user: two
+
+last_by_name:
+  city: Los Angeles
+  state: California
+  country: USA
+  time_zone: Pacific Time (US & Canada)
+  birthday: 2016-04-11
+  gender: Other
+  user: last_by_name
+
+<% 30.times do |n| %>
+profile_<%= n %>:
+  city: City <%= n %>
+  state: State <%= n %>
+  country: Country <%= n %>
+  time_zone: Mountain Time (US & Canada)
+  birthday: 2016-04-11
+  gender: Other
+  user: user_<%= n %>
+<% end %>
