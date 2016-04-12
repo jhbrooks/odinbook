@@ -7,7 +7,21 @@
 one:
   name: one
   email: one@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
 
 two:
   name: two
   email: two@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+
+last_by_name:
+  name: "zzz"
+  email: zzz@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+
+<% 30.times do |n| %>
+user_<%= n %>:
+  name: <%= n %>
+  email: <%= n %>@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+<% end %>

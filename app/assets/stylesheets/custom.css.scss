@@ -103,3 +103,18 @@ input {
   font-weight: normal;
   font-style: italic;
 }
+
+/* users index */
+
+#users_index {
+  li {
+    list-style: none;
+    border-top: 1px solid #f0f0f0;
+    span {
+      display: block;
+      &:last-child {
+        margin-bottom: 3px;
+      }
+    }
+  }
+}
