@@ -1,0 +1,23 @@
+<li class="users_index">
+  <% if received %>
+      <span>
+        <%= link_to friend_request.sender.name, friend_request.sender %>
+      </span>
+      <span>
+        <%= link_to "Ignore friend request",
+            friend_request_path(friend_request),
+            method: :delete %>
+      </span>
+  <% else %>
+    <li class="users_index">
+      <span>
+        <%= link_to friend_request.receiver.name, friend_request.receiver %>
+      </span>
+      <span>
+        <%= link_to "Cancel friend request",
+            friend_request_path(friend_request),
+            method: :delete %>
+      </span>
+    </li>
+  <% end %>
+</li>

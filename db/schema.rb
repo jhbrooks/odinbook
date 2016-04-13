@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412025419) do
+ActiveRecord::Schema.define(version: 20160413004749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friend_requests", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "friend_requests", ["receiver_id"], name: "index_friend_requests_on_receiver_id", using: :btree
+  add_index "friend_requests", ["sender_id", "receiver_id"], name: "index_friend_requests_on_sender_id_and_receiver_id", unique: true, using: :btree
+  add_index "friend_requests", ["sender_id"], name: "index_friend_requests_on_sender_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "city"
@@ -52,5 +63,7 @@ ActiveRecord::Schema.define(version: 20160412025419) do
   add_index "users", ["name"], name: "index_users_on_name", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "friend_requests", "users", column: "receiver_id"
+  add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "profiles", "users"
 end

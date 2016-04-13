@@ -35,3 +35,12 @@ genders = ["Male", "Female", "Other", nil]
                        birthday: Faker::Date.birthday,
                        gender: genders[n % genders.length])
 end
+
+User.all.each do |user|
+  5.times do
+    n = rand(0..98)
+    relevant_id = User.find_by(email: "ex-#{n}@example.com").id
+    # Some requests will be invalid, and will not be saved
+    user.sent_friend_requests.create(receiver_id: relevant_id)
+  end
+end

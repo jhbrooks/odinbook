@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sender: one
+  receiver: two
+
+two:
+  sender: two
+  receiver: one
+
+three:
+  sender: one
+  receiver: last_by_name

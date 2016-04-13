@@ -1,4 +1,23 @@
-<li>
-  <span><%= link_to user.name, user %></span>
-  <span><%= link_to "Send friend request", "#" %></span>
-</li>
+<% unless current_user == user %>
+  <li class="users_index">
+    <span><%= link_to user.name, user %></span>
+    <span id="friend_request_form">
+      <% if current_user.potential_active_friends.include?(user) %>
+        <% f_r = FriendRequest.where(sender_id: user.id,
+                                     receiver_id: current_user.id).first %>
+        <%= link_to "Ignore friend request",
+            friend_request_path(f_r),
+            method: :delete %>
+      <% elsif current_user.potential_passive_friends.include?(user) %>
+        <% f_r = FriendRequest.where(sender_id: current_user.id,
+                                     receiver_id: user.id).first %>
+        <%= link_to "Cancel friend request",
+            friend_request_path(f_r),
+            method: :delete %>
+      <% else %>
+        <%= link_to "Send friend request",
+            user_friend_requests_path(user), method: :post %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
