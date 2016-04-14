@@ -44,3 +44,21 @@ User.all.each do |user|
     user.sent_friend_requests.create(receiver_id: relevant_id)
   end
 end
+
+User.all.each do |user|
+  5.times do
+    n = rand(0..98)
+    other_user = User.find_by(email: "ex-#{n}@example.com")
+
+    no_sent_requests = !user.sent_friend_requests
+                            .where(receiver_id: other_user.id).exists?
+    no_received_requests = !other_user.sent_friend_requests
+                                      .where(receiver_id: user.id).exists?
+
+    if no_sent_requests && no_received_requests
+      # Some friendships will be invalid, and will not be saved
+      user.friendships.create(passive_friend_id: other_user.id)
+      other_user.friendships.create(passive_friend_id: user.id)
+    end
+  end
+end

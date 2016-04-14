@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  active_friend: one
+  passive_friend: three
+
+one_inverse:
+  active_friend: three
+  passive_friend: one
+
+two:
+  active_friend: two
+  passive_friend: three
+
+two_inverse:
+  active_friend: three
+  passive_friend: two
+
+<% 30.times do |n| %>
+friendship_<%= n %>:
+  active_friend: one
+  passive_friend: user_<%= n %>
+<% end %>
+
+<% 30.times do |n| %>
+friendship_<%= n %>_inverse:
+  active_friend: user_<%= n %>
+  passive_friend: one
+<% end %>

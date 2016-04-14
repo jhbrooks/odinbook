@@ -21,6 +21,8 @@ class FriendRequestsIndexTest < ActionDispatch::IntegrationTest
     @user.received_friend_requests.each do |request|
       assert_select "a[href=?]", user_path(request.sender),
                                  text: request.sender.name
+      assert_select "a[href=?]", user_friendships_path(request.sender),
+                                 text: "Accept friend request"
       assert_select "a[href=?]", friend_request_path(request),
                                  text: "Ignore friend request"
     end

@@ -1,9 +1,11 @@
 <% provide :title, @user.name %>
 
+<h1>Profile</h1>
+
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <h1><%= @user.name %></h1>
+      <h3><%= @user.name %></h3>
       <% unless @profile.city.blank? %>
         <span>City: <%= @profile.city %></span>
       <% end %>
@@ -25,6 +27,7 @@
       <% unless @profile.gender.blank? %>
         <span>Gender: <%= @profile.gender %></span>
       <% end %>
+      <%= link_to "Friends", user_friendships_path(@user) %>
     </section>
   </aside>
   <div class="col-md-8">

@@ -11,3 +11,7 @@ two:
 three:
   sender: one
   receiver: last_by_name
+
+four:
+  sender: four
+  receiver: three

@@ -20,9 +20,16 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     User.paginate(page: 1).each do |user|
       unless @user == user
         assert_select "a[href=?]", user_path(user), text: user.name
-        if @user.potential_active_friends.include?(user)
+        if @user.friends.include?(user)
+          f = Friendship.where(active_friend_id: @user.id,
+                               passive_friend_id: user.id).first
+          assert_select "a[href=?]", friendship_path(f),
+                                     text: "End friendship"
+        elsif @user.potential_active_friends.include?(user)
           f_r = FriendRequest.where(sender_id: user.id,
                                     receiver_id: @user.id).first
+          assert_select "a[href=?]", user_friendships_path(f_r.sender),
+                                 text: "Accept friend request"
           assert_select "a[href=?]", friend_request_path(f_r),
                                      text: "Ignore friend request"
         elsif @user.potential_passive_friends.include?(user)
@@ -42,9 +49,16 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     User.paginate(page: 2).each do |user|
       unless @user == user
         assert_select "a[href=?]", user_path(user), text: user.name
-        if @user.potential_active_friends.include?(user)
+        if @user.friends.include?(user)
+          f = Friendship.where(active_friend_id: @user.id,
+                               passive_friend_id: user.id).first
+          assert_select "a[href=?]", friendship_path(f),
+                                     text: "End friendship"
+        elsif @user.potential_active_friends.include?(user)
           f_r = FriendRequest.where(sender_id: user.id,
                                     receiver_id: @user.id).first
+          assert_select "a[href=?]", user_friendships_path(f_r.sender),
+                                 text: "Accept friend request"
           assert_select "a[href=?]", friend_request_path(f_r),
                                      text: "Ignore friend request"
         elsif @user.potential_passive_friends.include?(user)

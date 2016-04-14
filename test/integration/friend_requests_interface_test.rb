@@ -4,9 +4,13 @@ class FriendRequestsInterfaceTest < ActionDispatch::IntegrationTest
   def setup
     @user_one = users(:one)
     @user_two = users(:two)
+    @user_three = users(:three)
+    @user_four = users(:four)
     @other_user = users(:last_by_name)
+
     @friend_request_two = friend_requests(:two)
     @friend_request_three = friend_requests(:three)
+    @friend_request_four = friend_requests(:four)
   end
 
   test "should send request from users index page" do
@@ -143,5 +147,59 @@ class FriendRequestsInterfaceTest < ActionDispatch::IntegrationTest
     end
     assert_not flash.empty?
     assert_redirected_to user_friend_requests_path(@user_one)
+  end
+
+  test "should send request from friendships index page" do
+    get new_user_session_path
+    assert_template "users/sessions/new"
+    post user_session_path, user: { email: @other_user.email,
+                                    password: "password" }
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_template "static_pages/home"
+
+    get user_friendships_path(@user_one), page: 2
+    assert_template "friendships/index"
+    assert_select "a[href=?]", user_friend_requests_path(@user_three),
+                               text: "Send friend request"
+    assert_difference "FriendRequest.count", 1 do
+      post user_friend_requests_path(@user_three)
+    end
+  end
+
+  test "should ignore request from friendships index page" do
+    get new_user_session_path
+    assert_template "users/sessions/new"
+    post user_session_path, user: { email: @other_user.email,
+                                    password: "password" }
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_template "static_pages/home"
+
+    get user_friendships_path(@user_three), page: 1
+    assert_template "friendships/index"
+    assert_select "a[href=?]", friend_request_path(@friend_request_three),
+                               text: "Ignore friend request"
+    assert_difference "FriendRequest.count", -1 do
+      delete friend_request_path(@friend_request_three)
+    end
+  end
+
+  test "should cancel request from friendships index page" do
+    get new_user_session_path
+    assert_template "users/sessions/new"
+    post user_session_path, user: { email: @user_four.email,
+                                    password: "password" }
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_template "static_pages/home"
+
+    get user_friendships_path(@user_one), page: 2
+    assert_template "friendships/index"
+    assert_select "a[href=?]", friend_request_path(@friend_request_four),
+                               text: "Cancel friend request"
+    assert_difference "FriendRequest.count", -1 do
+      delete friend_request_path(@friend_request_four)
+    end
   end
 end

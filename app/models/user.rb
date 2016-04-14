@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_one :profile
+
   has_many :sent_friend_requests, foreign_key: :sender_id,
                                   class_name: "FriendRequest"
   has_many :potential_passive_friends, through: :sent_friend_requests,
@@ -8,6 +9,10 @@ class User < ActiveRecord::Base
                                       class_name: "FriendRequest"
   has_many :potential_active_friends, through: :received_friend_requests,
                                       source: :sender
+
+  has_many :friendships, foreign_key: :active_friend_id,
+                         class_name: "Friendship"
+  has_many :friends, through: :friendships, source: :passive_friend
 
   default_scope -> { order(:name) }
 

@@ -4,6 +4,9 @@
         <%= link_to friend_request.sender.name, friend_request.sender %>
       </span>
       <span>
+        <%= link_to "Accept friend request",
+            user_friendships_path(friend_request.sender),
+            method: :post %></span><span>
         <%= link_to "Ignore friend request",
             friend_request_path(friend_request),
             method: :delete %>

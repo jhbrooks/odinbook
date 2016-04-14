@@ -18,6 +18,12 @@ two:
   gender: Female
   user: two
 
+three:
+  user: three
+
+four:
+  user: four
+
 last_by_name:
   city: Los Angeles
   state: California

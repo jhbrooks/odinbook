@@ -2,8 +2,10 @@
 
 <h1>Users</h1>
 
-<div class="col-md-4" id="users_index">
+<div class="col-md-4">
   <%= will_paginate %>
-  <%= render @users %>
+  <%= render partial: "user",
+             collection: @users,
+             locals: { users_index: true } %>
   <%= will_paginate %>
 </div>

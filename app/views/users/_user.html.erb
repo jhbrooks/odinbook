@@ -1,10 +1,20 @@
-<% unless current_user == user %>
+<% unless current_user == user && users_index %>
   <li class="users_index">
     <span><%= link_to user.name, user %></span>
     <span id="friend_request_form">
-      <% if current_user.potential_active_friends.include?(user) %>
+      <% if current_user.friends.include?(user) %>
+        <% f = Friendship.where(active_friend_id: current_user.id,
+                                passive_friend_id: user.id).first %>
+        <%= link_to "End friendship",
+            friendship_path(f),
+            method: :delete,
+            data: { confirm: "Are you sure?" } %>
+      <% elsif current_user.potential_active_friends.include?(user) %>
         <% f_r = FriendRequest.where(sender_id: user.id,
                                      receiver_id: current_user.id).first %>
+        <%= link_to "Accept friend request",
+            user_friendships_path(f_r.sender),
+            method: :post %></span><span>
         <%= link_to "Ignore friend request",
             friend_request_path(f_r),
             method: :delete %>
@@ -15,8 +25,12 @@
             friend_request_path(f_r),
             method: :delete %>
       <% else %>
-        <%= link_to "Send friend request",
-            user_friend_requests_path(user), method: :post %>
+        <% if current_user == user %>
+          <%= link_to "Current user", user %>
+        <% else %>
+          <%= link_to "Send friend request",
+              user_friend_requests_path(user), method: :post %>
+        <% end %>
       <% end %>
     </span>
   </li>

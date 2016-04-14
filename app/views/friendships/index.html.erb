@@ -1,0 +1,11 @@
+<% provide :title, "Friends" %>
+
+<h1>Friends</h1>
+
+<div class="col-md-4">
+  <%= will_paginate @friends %>
+  <%= render partial: "users/user",
+             collection: @friends,
+             locals: { users_index: false } %>
+  <%= will_paginate @friends %>
+</div>

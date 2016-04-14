@@ -14,6 +14,16 @@ two:
   email: two@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
 
+three:
+  name: three
+  email: three@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+
+four:
+  name: four
+  email: four@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+
 last_by_name:
   name: "zzz"
   email: zzz@example.com
