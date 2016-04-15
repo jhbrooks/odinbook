@@ -150,6 +150,26 @@ li.posts_index {
   border-top: 1px solid #f0f0f0;
   span {
     display: block;
+  }
+  span.last_span {
+    margin-bottom: 3px;
+  }
+}
+
+/* comments form */
+
+.comment_form {
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+/* comments index */
+
+li.comments_index {
+  list-style: none;
+  border-top: 1px solid #f0f0f0;
+  span {
+    display: block;
     &:last-child {
       margin-bottom: 3px;
     }

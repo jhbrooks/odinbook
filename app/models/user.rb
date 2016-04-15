@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
+  has_many :comments
+
   default_scope -> { order(:name) }
 
   validates :name, presence: true

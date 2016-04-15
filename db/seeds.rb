@@ -68,3 +68,18 @@ User.all.each do |user|
     user.posts.create!(content: Faker::Lorem.paragraph)
   end
 end
+
+User.all.each do |user|
+  rand(0..5).times do
+    user_n = rand(0..98)
+    other_user = User.find_by(email: "ex-#{user_n}@example.com")
+    if other_user.posts.exists?
+      rand(0..5).times do
+        offset_n = rand(0...other_user.posts.size)
+        other_user.posts.offset(offset_n).first
+          .comments.create!(content: Faker::Lorem.sentence,
+                            user_id: user.id)
+      end
+    end
+  end
+end

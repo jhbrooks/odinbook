@@ -2,7 +2,11 @@
   <% provide :title, @user.name %>
 <% end %>
 
-<h1>Profile</h1>
+<% if @timeline %>
+  <h1>Home</h1>
+<% else %>
+  <h1>Profile</h1>
+<% end %>
 
 <div class="row">
   <aside class="col-md-4">

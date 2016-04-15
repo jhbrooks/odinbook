@@ -1,8 +1,9 @@
 require 'test_helper'
 
-class PostsInterfaceTest < ActionDispatch::IntegrationTest
+class CommentsInterfaceTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:one)
+    @post = posts(:one)
   end
 
   test "should post from users show page" do
@@ -18,9 +19,9 @@ class PostsInterfaceTest < ActionDispatch::IntegrationTest
     get user_path(@user)
     assert_template "users/show"
 
-    assert_select "form[action=?]", posts_path
-    assert_difference "Post.count", 1 do
-      post posts_path, post: { content: "Lorem ipsum." }
+    assert_select "form[action=?]", post_comments_path(@post)
+    assert_difference "Comment.count", 1 do
+      post post_comments_path(@post), comment: { content: "Lorem ipsum." }
     end
   end
 
@@ -34,9 +35,9 @@ class PostsInterfaceTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template "users/show"
 
-    assert_select "form[action=?]", posts_path
-    assert_difference "Post.count", 1 do
-      post posts_path, post: { content: "Lorem ipsum." }
+    assert_select "form[action=?]", post_comments_path(@post)
+    assert_difference "Comment.count", 1 do
+      post post_comments_path(@post), comment: { content: "Lorem ipsum." }
     end
   end
 end

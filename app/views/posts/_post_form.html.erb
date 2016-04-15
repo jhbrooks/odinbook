@@ -1,5 +1,5 @@
 <div id="post_form">
-  <%= form_for @post, url: root_path do |f| %>
+  <%= form_for @post, url: posts_path do |f| %>
     <div>
       <%= f.text_area :content, placeholder: "Compose new post...",
                                 class: "form-control" %>

@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   end
   resources :friend_requests, only: :destroy
   resources :friendships, only: :destroy
-  post '/' => 'posts#create'
+  resources :posts, only: :create do
+    resources :comments, only: :create
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

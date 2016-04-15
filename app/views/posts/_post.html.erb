@@ -1,5 +1,11 @@
 <li class="posts_index">
   <span><%= post.content %></span>
   <span><%= link_to post.user.name, post.user %></span>
-  <span><%= formatted_datetime(post.created_at) %></span>
+  <span class="last_span"><%= formatted_datetime(post.created_at) %></span>
+  <ol>
+    <%= render post.comments %>
+    <%= render partial: "comments/comment_form",
+             locals: { comment: post.comments.build,
+                       post: post } %>
+  </ol>
 </li>

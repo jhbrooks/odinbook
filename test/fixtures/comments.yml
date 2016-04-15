@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: One content.
+  user: one
+  commentable: one (Post)
+  created_at: <%= 42.days.ago %>
+
+most_recent:
+  content: Most recent content.
+  user: one
+  commentable: one(Post)
+
+two:
+  content: Two content.
+  user: two
+  commentable: one (Post)
+  created_at: <%= 42.days.ago %>

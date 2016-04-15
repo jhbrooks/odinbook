@@ -28,18 +28,31 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_match @profile.age.to_s, response.body
     assert_match @profile.gender, response.body
 
+    assert_select "h1", text: "Profile"
     assert_select "h3", text: "Posts"
     assert_select "div#post_form", count: 1
 
     @user.posts.paginate(page: 1).each do |post|
       assert_select "span", text: post.content
       assert_select "a[href=?]", user_path(post.user), text: post.user.name
-      if post.user.profile.time_zone
+      if @user.profile.time_zone
         assert_select "span", text: formatted_datetime(post.created_at
-          .in_time_zone(post.user.profile.time_zone))
+          .in_time_zone(@user.profile.time_zone))
       else
         assert_select "span", text: formatted_datetime(post.created_at)
       end
+      post.comments.each do |comment|
+        assert_select "span", text: comment.content
+        assert_select "a[href=?]", user_path(comment.user),
+                                   text: comment.user.name
+        if @user.profile.time_zone
+          assert_select "span", text: formatted_datetime(comment.created_at
+            .in_time_zone(@user.profile.time_zone))
+        else
+          assert_select "span", text: formatted_datetime(comment.created_at)
+        end
+      end
+      assert_select "form[action=?]", post_comments_path(post), count: 1
     end
 
     get user_path(@user), page: 2
@@ -47,12 +60,24 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     @user.posts.paginate(page: 2).each do |post|
       assert_select "span", text: post.content
       assert_select "a[href=?]", user_path(post.user), text: post.user.name
-      if post.user.profile.time_zone
+      if @user.profile.time_zone
         assert_select "span", text: formatted_datetime(post.created_at
-          .in_time_zone(post.user.profile.time_zone))
+          .in_time_zone(@user.profile.time_zone))
       else
         assert_select "span", text: formatted_datetime(post.created_at)
       end
+      post.comments.each do |comment|
+        assert_select "span", text: comment.content
+        assert_select "a[href=?]", user_path(comment.user),
+                                   text: comment.user.name
+        if @user.profile.time_zone
+          assert_select "span", text: formatted_datetime(comment.created_at
+            .in_time_zone(@user.profile.time_zone))
+        else
+          assert_select "span", text: formatted_datetime(comment.created_at)
+        end
+      end
+      assert_select "form[action=?]", post_comments_path(post), count: 1
     end
   end
 
