@@ -38,7 +38,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                     password: "password" }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
 
     get edit_user_path(@user)
     assert_template "users/edit"

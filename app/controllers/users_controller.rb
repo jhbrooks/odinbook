@@ -9,6 +9,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @profile = @user.profile
+    @posts = @user.posts.paginate(page: params[:page])
+    @timeline = false
+    @post = @user.posts.build
   end
 
   def edit

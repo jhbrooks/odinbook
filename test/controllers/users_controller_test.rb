@@ -48,21 +48,21 @@ class UsersControllerTest < ActionController::TestCase
   test "should patch update when logged in" do
     sign_in @user
     patch :update, id: @user, profile: { city: nil,
-                                           state: nil,
-                                           country: nil,
-                                           time_zone: nil,
-                                           birthday: nil,
-                                           gender: nil }
+                                         state: nil,
+                                         country: nil,
+                                         time_zone: nil,
+                                         birthday: nil,
+                                         gender: nil }
     assert_redirected_to @user
   end
 
   test "should redirect update when logged out" do
     patch :update, id: @user, profile: { city: nil,
-                                           state: nil,
-                                           country: nil,
-                                           time_zone: nil,
-                                           birthday: nil,
-                                           gender: nil }
+                                         state: nil,
+                                         country: nil,
+                                         time_zone: nil,
+                                         birthday: nil,
+                                         gender: nil }
     assert_response :redirect
   end
 

@@ -4,8 +4,10 @@
 
 <div class="col-md-4">
   <%= will_paginate %>
-  <%= render partial: "user",
-             collection: @users,
-             locals: { users_index: true } %>
+  <ol>
+    <%= render partial: "user",
+               collection: @users,
+               locals: { users_index: true } %>
+  </ol>
   <%= will_paginate %>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413210122) do
+ActiveRecord::Schema.define(version: 20160414154515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 20160413210122) do
   add_index "friendships", ["active_friend_id", "passive_friend_id"], name: "index_friendships_on_active_friend_id_and_passive_friend_id", unique: true, using: :btree
   add_index "friendships", ["active_friend_id"], name: "index_friendships_on_active_friend_id", using: :btree
   add_index "friendships", ["passive_friend_id"], name: "index_friendships_on_passive_friend_id", using: :btree
+
+  create_table "posts", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "posts", ["created_at"], name: "index_posts_on_created_at", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "city"
@@ -78,5 +88,6 @@ ActiveRecord::Schema.define(version: 20160413210122) do
   add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "friendships", "users", column: "active_friend_id"
   add_foreign_key "friendships", "users", column: "passive_friend_id"
+  add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
 end

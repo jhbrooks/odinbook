@@ -5,14 +5,18 @@
 <div class="row">
   <div class="col-md-6" id="received_index">
     <h3>Received requests</h3>
-    <%= render partial: "friend_request",
-               collection: @user.received_friend_requests,
-               locals: { received: true } %>
+    <ul>
+      <%= render partial: "friend_request",
+                 collection: @user.received_friend_requests,
+                 locals: { received: true } %>
+    </ul>
   </div>
   <div class="col-md-6" id="sent_index">
     <h3>Sent requests</h3>
-    <%= render partial: "friend_request",
-               collection: @user.sent_friend_requests,
-               locals: { received: false } %>
+    <ul>
+      <%= render partial: "friend_request",
+                 collection: @user.sent_friend_requests,
+                 locals: { received: false } %>
+    </ul>
   </div>
 </div>

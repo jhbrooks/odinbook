@@ -16,7 +16,7 @@ class FriendshipsInterfaceTest < ActionDispatch::IntegrationTest
                                     password: "password" }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
 
     get users_path, page: 2
     assert_template "users/index"
@@ -36,7 +36,7 @@ class FriendshipsInterfaceTest < ActionDispatch::IntegrationTest
                                     password: "password" }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
 
     get users_path, page: 2
     assert_template "users/index"
@@ -54,7 +54,7 @@ class FriendshipsInterfaceTest < ActionDispatch::IntegrationTest
                                     password: "password" }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
 
     get user_friend_requests_path(@user_two)
     assert_template "friend_requests/index"
@@ -74,7 +74,7 @@ class FriendshipsInterfaceTest < ActionDispatch::IntegrationTest
                                     password: "password" }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
 
     get user_friendships_path(@user_three), page: 1
     assert_template "friendships/index"
@@ -94,7 +94,7 @@ class FriendshipsInterfaceTest < ActionDispatch::IntegrationTest
                                     password: "password" }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
 
     get user_friendships_path(@user_two), page: 1
     assert_template "friendships/index"
@@ -112,7 +112,7 @@ class FriendshipsInterfaceTest < ActionDispatch::IntegrationTest
                                     password: "password" }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
 
     get users_path, page: 2
     assert_template "users/index"
@@ -139,7 +139,7 @@ class FriendshipsInterfaceTest < ActionDispatch::IntegrationTest
                                     password: "password" }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
 
     get users_path, page: 2
     assert_template "users/index"

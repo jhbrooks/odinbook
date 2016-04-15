@@ -62,3 +62,9 @@ User.all.each do |user|
     end
   end
 end
+
+User.all.each do |user|
+  rand(0..10).times do
+    user.posts.create!(content: Faker::Lorem.paragraph)
+  end
+end

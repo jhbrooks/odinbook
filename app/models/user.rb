@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
                          class_name: "Friendship"
   has_many :friends, through: :friendships, source: :passive_friend
 
+  has_many :posts
+
   default_scope -> { order(:name) }
 
   validates :name, presence: true
@@ -32,5 +34,12 @@ class User < ActiveRecord::Base
 
       user.create_profile
     end
+  end
+
+  def timeline
+    friend_ids = "SELECT passive_friend_id FROM friendships
+                  WHERE active_friend_id = :user_id"
+    Post.where("user_id IN (#{friend_ids})
+                OR user_id = :user_id", user_id: id)
   end
 end

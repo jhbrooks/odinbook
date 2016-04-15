@@ -1,24 +1,27 @@
 require 'test_helper'
 
-class UsersShowTest < ActionDispatch::IntegrationTest
+class StaticPagesHomeTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:one)
-    @user_two = users(:two)
     @profile = profiles(:one)
   end
 
-  test "should display show page for logged-in users" do
-    get user_path(@user)
-    assert_redirected_to new_user_session_path
-    follow_redirect!
+  test "should display home page for logged-out users" do
+    get root_path
+    assert_template "static_pages/home"
+    assert_select "h1", text: "Welcome to Odinbook"
+  end
+
+  test "should display home page for logged-in users" do
+    get new_user_session_path
     assert_template "users/sessions/new"
 
     post user_session_path, user: { email: @user.email,
                                     password: "password" }
-    assert_redirected_to user_path(@user)
+    assert_redirected_to root_path
     follow_redirect!
     assert_template "users/show"
-    assert_select "title", text: full_title(@user.name)
+    assert_select "title", text: full_title
     assert_match @user.name, response.body
     assert_match CGI.escapeHTML(@profile.city), response.body
     assert_match @profile.state, response.body
@@ -28,7 +31,7 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_match @profile.age.to_s, response.body
     assert_match @profile.gender, response.body
 
-    assert_select "h3", text: "Posts"
+    assert_select "h3", text: "Timeline"
     assert_select "div#post_form", count: 1
 
     @user.posts.paginate(page: 1).each do |post|
@@ -54,38 +57,5 @@ class UsersShowTest < ActionDispatch::IntegrationTest
         assert_select "span", text: formatted_datetime(post.created_at)
       end
     end
-  end
-
-  test "should display show page for new users" do
-    get new_user_registration_path
-    assert_template "users/registrations/new"
-    post user_registration_path, user: { name: "new",
-                                         email: "new@example.com",
-                                         password: "password",
-                                         password_confirmation: "password" }
-    user = User.find_by(email: "new@example.com")
-    profile = user.profile
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_template "users/show"
-
-    get user_path(user)
-    assert_template "users/show"
-    assert_select "title", text: full_title(user.name)
-  end
-
-  test "should display show page without post form for other users" do
-    get new_user_session_path
-    assert_template "users/sessions/new"
-
-    post user_session_path, user: { email: @user.email,
-                                    password: "password" }
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_template "users/show"
-
-    get user_path(@user_two)
-    assert_template "users/show"
-    assert_select "div#post_form", count: 0
   end
 end

@@ -1,0 +1,5 @@
+<li class="posts_index">
+  <span><%= post.content %></span>
+  <span><%= link_to post.user.name, post.user %></span>
+  <span><%= formatted_datetime(post.created_at) %></span>
+</li>

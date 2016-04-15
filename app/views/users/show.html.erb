@@ -1,4 +1,6 @@
-<% provide :title, @user.name %>
+<% unless @timeline %>
+  <% provide :title, @user.name %>
+<% end %>
 
 <h1>Profile</h1>
 
@@ -30,7 +32,19 @@
       <%= link_to "Friends", user_friendships_path(@user) %>
     </section>
   </aside>
-  <div class="col-md-8">
-    <h3>News feed</h3>
+  <div class="col-md-4">
+    <% if @timeline %>
+      <h3>Timeline</h3>
+    <% else %>
+      <h3>Posts</h3>
+    <% end %>
+    <% if current_user == @user %>
+      <%= render "posts/post_form" %>
+    <% end %>
+    <%= will_paginate @posts %>
+    <ol>
+      <%= render @posts %>
+    </ol>
+    <%= will_paginate @posts %>
   </div>
 </div>
