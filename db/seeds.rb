@@ -83,3 +83,27 @@ User.all.each do |user|
     end
   end
 end
+
+User.all.each do |user|
+  rand(0..5).times do
+    user_n = rand(0..98)
+    other_user = User.find_by(email: "ex-#{user_n}@example.com")
+    if other_user.posts.exists?
+      rand(0..3).times do
+        offset_n = rand(0...other_user.posts.size)
+        # Some reactions will be invalid, and will not be saved
+        post = other_user.posts.offset(offset_n).first
+        post.reactions.create(mode: "like", user_id: user.id)
+
+        if post.comments.exists?
+          rand(0..3).times do
+            c_offset_n = rand(0...post.comments.size)
+            # Some reactions will be invalid, and will not be saved
+            post.comments.offset(c_offset_n).first
+              .reactions.create(mode: "like", user_id: user.id)
+          end
+        end
+      end
+    end
+  end
+end

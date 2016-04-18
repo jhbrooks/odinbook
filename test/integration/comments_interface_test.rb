@@ -6,7 +6,7 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
     @post = posts(:one)
   end
 
-  test "should post from users show page" do
+  test "should comment from users show page" do
     get new_user_session_path
     assert_template "users/sessions/new"
 
@@ -25,7 +25,7 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should post from logged-in home page" do
+  test "should comment from logged-in home page" do
     get new_user_session_path
     assert_template "users/sessions/new"
 

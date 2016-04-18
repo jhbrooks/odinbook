@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mode: like
+  user: two
+  reactable: one (Comment)
+
+two:
+  mode: like
+  user: two
+  reactable: one (Post)

@@ -1,5 +1,5 @@
 <div class="comment_form">
-  <%= form_for comment, url: post_comments_path(post) do |f| %>
+  <%= form_for comment, url: polymorphic_path([commentable, comment]) do |f| %>
     <div>
       <%= f.text_area :content, placeholder: "Compose new comment...",
                                 class: "form-control" %>

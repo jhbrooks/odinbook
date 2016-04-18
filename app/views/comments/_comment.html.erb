@@ -2,4 +2,7 @@
   <span><%= comment.content %></span>
   <span><%= link_to comment.user.name, comment.user %></span>
   <span><%= formatted_datetime(comment.created_at) %></span>
+  <%= render partial: "reactions/reaction_form",
+             locals: { reaction: comment.reactions.build,
+                       reactable: comment } %>
 </li>

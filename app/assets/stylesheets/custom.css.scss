@@ -137,45 +137,6 @@ li.users_index {
   }
 }
 
-/* post form */
-
-#post_form {
-  margin-bottom: 10px;
-}
-
-/* posts index */
-
-li.posts_index {
-  list-style: none;
-  border-top: 1px solid #f0f0f0;
-  span {
-    display: block;
-  }
-  span.last_span {
-    margin-bottom: 3px;
-  }
-}
-
-/* comments form */
-
-.comment_form {
-  margin-top: 12px;
-  margin-bottom: 10px;
-}
-
-/* comments index */
-
-li.comments_index {
-  list-style: none;
-  border-top: 1px solid #f0f0f0;
-  span {
-    display: block;
-    &:last-child {
-      margin-bottom: 3px;
-    }
-  }
-}
-
 /* users sidebar */
 
 aside {
@@ -194,5 +155,53 @@ aside {
     display: block;
     margin-bottom: 3px;
     line-height: 1;
+  }
+}
+
+/* post form */
+
+#post_form {
+  margin-bottom: 10px;
+}
+
+/* posts index */
+
+li.posts_index {
+  list-style: none;
+  border-top: 1px solid #f0f0f0;
+  span {
+    display: block;
+  }
+}
+
+/* comments form */
+
+.comment_form {
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+/* comments index */
+
+li.comments_index {
+  list-style: none;
+  border-top: 1px solid #f0f0f0;
+  span {
+    display: block;
+  }
+}
+
+/* reactions form */
+
+div.reaction_form {
+  .reaction_image {
+    display: inline-block;
+    margin-bottom: 0px;
+    padding: 5px;
+    width: 5px;
+  }
+  margin-bottom: 3px;
+  span {
+    display: inline-block;
   }
 }

@@ -1,0 +1,19 @@
+<div class="reaction_form">
+  <% reactions_exist = reactable.reactions.exists? %>
+  <% already_liked = reactable.reactions
+                              .where(user_id: current_user.id).exists? %>
+
+  <% if reactions_exist %>
+    <div class="reaction_image alert alert-info"></div>
+    <span><%= pluralize(reactable.reactions.count, "like") %></span>
+  <% end %>
+  <% if reactions_exist && !already_liked %>
+    <span>—</span>
+  <% end %>
+  <% unless already_liked %>
+    <span>
+      <%= link_to "Like", polymorphic_path([reactable, reaction]),
+                          method: :post %>
+    </span>
+  <% end %>
+</div>

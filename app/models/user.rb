@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
   has_many :friends, through: :friendships, source: :passive_friend
 
   has_many :posts
-
   has_many :comments
+  has_many :reactions
 
   default_scope -> { order(:name) }
 
