@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   private
     def profile_params
       params.require(:profile).permit(:city, :state, :country, :time_zone,
-                                      :birthday, :gender)
+                                      :birthday, :gender, :picture)
     end
 
     # Before actions

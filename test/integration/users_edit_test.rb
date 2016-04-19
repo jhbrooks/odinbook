@@ -50,12 +50,16 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     time_zone = "Central Time (US & Canada)"
     birthday = "2000-04-11"
     gender = "Other"
+    assert_select "input[type=file]"
+    picture = fixture_file_upload("test/fixtures/rails.png", "image/png")
     patch user_path(@user), profile: { city: city,
                                        state: state,
                                        country: country,
                                        time_zone: time_zone,
                                        birthday: birthday,
-                                       gender: gender }
+                                       gender: gender,
+                                       picture: picture }
+    assert assigns(:profile).picture?
     assert_not flash.empty?
     assert_redirected_to @user
     @profile.reload

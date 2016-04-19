@@ -31,6 +31,7 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_select "h1", text: "Profile"
     assert_select "h3", text: "Posts"
     assert_select "div#post_form", count: 1
+    assert_select "input[type=file]", count: 1
 
     @user.posts.paginate(page: 1).each do |post|
       assert_select "span", text: post.content
@@ -144,5 +145,6 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     get user_path(@user_two)
     assert_template "users/show"
     assert_select "div#post_form", count: 0
+    assert_select "input[type=file]", count: 0
   end
 end

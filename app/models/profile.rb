@@ -1,6 +1,8 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
 
+  mount_uploader :picture, PictureUploader
+
   validates :time_zone,
             inclusion: { in: ActiveSupport::TimeZone.all.map(&:name),
                          message: "%{value} is not a valid time zone" },
@@ -9,6 +11,7 @@ class Profile < ActiveRecord::Base
             date: { before_or_equal_to: Proc.new { Date.today },
                     message: "must be before or equal to today's date" },
             allow_blank: true
+  validate  :picture_size
 
   def age
     return if birthday.nil?
@@ -21,4 +24,12 @@ class Profile < ActiveRecord::Base
     end
     c_d.year - b_d.year - adj
   end
+
+  private
+
+    def picture_size
+      if picture.size > 5.megabytes
+        errors.add(:picture, "should be less than 5MB")
+      end
+    end
 end

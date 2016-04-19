@@ -125,10 +125,8 @@ li.users_index {
   list-style: none;
   border-top: 1px solid #f0f0f0;
   span {
-    &:first-child {
-      a {
-        color: black;
-      }
+    a.name_link {
+      color: black;
     }
     display: block;
     &:last-child {
@@ -204,4 +202,31 @@ div.reaction_form {
   span {
     display: inline-block;
   }
+}
+
+/* picture upload */
+
+.picture_upload {
+  input, textarea, select, .uneditable-input {
+    border: none;
+  }
+}
+
+/* post pictures */
+
+.post_picture {
+  margin: 3px 0;
+}
+
+/* thumbnails */
+
+.thumb_picture {
+  float: left;
+  margin: 3px 8px 3px 0;
+}
+
+div.thumb_container {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
 }

@@ -34,6 +34,7 @@ class StaticPagesHomeTest < ActionDispatch::IntegrationTest
     assert_select "h1", text: "Home"
     assert_select "h3", text: "Timeline"
     assert_select "div#post_form", count: 1
+    assert_select "input[type=file]", count: 1
 
     @user.posts.paginate(page: 1).each do |post|
       assert_select "span", text: post.content

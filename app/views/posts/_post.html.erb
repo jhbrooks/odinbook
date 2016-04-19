@@ -1,10 +1,22 @@
 <li class="posts_index">
   <span><%= post.content %></span>
-  <span><%= link_to post.user.name, post.user %></span>
-  <span class="last_span"><%= formatted_datetime(post.created_at) %></span>
-  <%= render partial: "reactions/reaction_form",
-             locals: { reaction: post.reactions.build,
-                       reactable: post } %>
+  <span class="post_picture">
+    <%= image_tag post.picture.url if post.picture? %>
+  </span>
+  <div class="container thumb_container">
+    <% if post.user.profile.picture? %>
+      <div class="thumb_picture">
+        <span>
+          <%= image_tag post.user.profile.picture.thumb.url %>
+        </span>
+      </div>
+    <% end %>
+    <span><%= link_to post.user.name, post.user %></span>
+    <span class="last_span"><%= formatted_datetime(post.created_at) %></span>
+    <%= render partial: "reactions/reaction_form",
+               locals: { reaction: post.reactions.build,
+                         reactable: post } %>
+  </div>
   <ol>
     <%= render post.comments %>
     <%= render partial: "comments/comment_form",

@@ -1,7 +1,16 @@
 <li class="users_index">
-  <% if received %>
+  <div class="container thumb_container">
+    <% if received %>
+      <% if friend_request.sender.profile.picture? %>
+        <div class="thumb_picture">
+          <span>
+            <%= image_tag friend_request.sender.profile.picture.thumb.url %>
+          </span>
+        </div>
+      <% end %>
       <span>
-        <%= link_to friend_request.sender.name, friend_request.sender %>
+        <%= link_to friend_request.sender.name, friend_request.sender,
+                                                class: "name_link" %>
       </span>
       <span>
         <%= link_to "Accept friend request",
@@ -11,16 +20,23 @@
             friend_request_path(friend_request),
             method: :delete %>
       </span>
-  <% else %>
-    <li class="users_index">
+    <% else %>
+      <% if friend_request.receiver.profile.picture? %>
+        <div class="thumb_picture">
+          <span class="picture">
+            <%= image_tag friend_request.receiver.profile.picture.thumb.url %>
+          </span>
+        </div>
+      <% end %>
       <span>
-        <%= link_to friend_request.receiver.name, friend_request.receiver %>
+        <%= link_to friend_request.receiver.name, friend_request.receiver,
+                                                  class: "name_link" %>
       </span>
       <span>
         <%= link_to "Cancel friend request",
             friend_request_path(friend_request),
             method: :delete %>
       </span>
-    </li>
-  <% end %>
+    <% end %>
+  </div>
 </li>

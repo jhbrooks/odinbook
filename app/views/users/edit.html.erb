@@ -4,7 +4,8 @@
   <div class="col-md-4 col-md-offset-4">
     <h2>Edit profile</h2>
 
-    <%= form_for(@profile, url: user_path(@user), method: :patch) do |f| %>
+    <%= form_for @profile, url: user_path(@user),
+                           method: :patch, html: { multipart: true } do |f| %>
       <%= render "shared/error_messages", object: f.object %>
 
       <%= f.label :city %>
@@ -38,7 +39,21 @@
                                 { class: "form-control" } %>
       </div>
 
+      <div class="picture_upload">
+        <%= f.label :picture, "Upload picture" %>
+        <%= f.file_field :picture, accept: "image/jpeg,image/gif,image/png" %>
+      </div>
+
       <%= f.submit "Update", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $('#profile_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+</script>
