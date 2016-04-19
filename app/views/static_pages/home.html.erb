@@ -1,1 +1,14 @@
 <h1>Welcome to Odinbook</h1>
+
+<div class="center">
+  <h4>
+    New user? 
+    <%= link_to "Sign up", new_registration_path(:user) %>
+    <% User.omniauth_providers.each do |provider| %>
+      or 
+      <% link_name = "sign in with #{OmniAuth::Utils.camelize(provider)}" %>
+      <% link_name += "." if provider == User.omniauth_providers.last %>
+      <%= link_to link_name, omniauth_authorize_path(:user, provider) %>
+    <% end %>
+  </h4>
+</div>
