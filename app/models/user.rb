@@ -1,22 +1,28 @@
 class User < ActiveRecord::Base
-  has_one :profile
+  has_one :profile, dependent: :destroy
 
   has_many :sent_friend_requests, foreign_key: :sender_id,
-                                  class_name: "FriendRequest"
+                                  class_name: "FriendRequest",
+                                  dependent: :destroy
   has_many :potential_passive_friends, through: :sent_friend_requests,
                                       source: :receiver
   has_many :received_friend_requests, foreign_key: :receiver_id,
-                                      class_name: "FriendRequest"
+                                      class_name: "FriendRequest",
+                                      dependent: :destroy
   has_many :potential_active_friends, through: :received_friend_requests,
                                       source: :sender
 
   has_many :friendships, foreign_key: :active_friend_id,
-                         class_name: "Friendship"
+                         class_name: "Friendship",
+                         dependent: :destroy
   has_many :friends, through: :friendships, source: :passive_friend
+  has_many :passive_friendships, foreign_key: :passive_friend_id,
+                                 class_name: "Friendship",
+                                 dependent: :destroy
 
-  has_many :posts
-  has_many :comments
-  has_many :reactions
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :reactions, dependent: :destroy
 
   default_scope -> { order(:name) }
 

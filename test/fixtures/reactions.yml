@@ -9,3 +9,8 @@ two:
   mode: like
   user: two
   reactable: one (Post)
+
+three:
+  mode: like
+  user: one
+  reactable: last_by_created_at (Post)

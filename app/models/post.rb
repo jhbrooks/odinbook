@@ -1,8 +1,8 @@
 class Post < ActiveRecord::Base
   belongs_to :user
 
-  has_many :comments, as: :commentable
-  has_many :reactions, as: :reactable
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :reactions, as: :reactable, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
 
